@@ -50,14 +50,10 @@ ArmorSearch::~ArmorSearch(){
 	armorJson->~Value();
 }
 
-// Getter for JSON; probably delete this
-Json::Value ArmorSearch::getJson() {
-	return *armorJson;
-}
-
-
 /**
 * Searches JSON for armors matching provided skill. (use DDL with text input to find skill)
+*
+* TODO: Change so that skill is found in menu rather than searched for
 *
 * @param resultList - List to populate with matching armors
 * @param skillName - Name of skill to check against skills in JSON
@@ -93,6 +89,8 @@ void ArmorSearch::searchBySkill(std::vector<Json::Value>& resultList, string& sk
 
 /**
 * Searches JSON for armors matching provided name. 
+*
+* TODO: Change so that name is searched using "string contains" function rather than specific regex_match
 *
 * @param resultList - List to populate with matching armors
 * @param armorName - Name of armor to check against "name_en" field in JSON

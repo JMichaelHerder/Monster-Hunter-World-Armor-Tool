@@ -153,6 +153,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ArmorPiece.cpp" />
     <ClCompile Include="ArmorSearch.cpp" />
     <ClCompile Include="ArmorSet.cpp" />
     <ClCompile Include="jsoncpp.cpp" />
@@ -162,6 +163,7 @@
     <None Include="armors.json" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ArmorPiece.h" />
     <ClInclude Include="ArmorSearch.h" />
     <ClInclude Include="ArmorSet.h" />
     <ClInclude Include="json-forwards.h" />

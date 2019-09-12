@@ -1,9 +1,10 @@
-#pragma once
+#ifndef ARMORSEARCH_H
+#define ARMORSEARCH_H
+
 #include "json.h"
 #include <vector>
 #include <regex>
 #include <ctype.h>
-
 #include <iostream>
 
 using string = std::string;
@@ -13,8 +14,6 @@ public:
 	ArmorSearch(Json::Value& root);
 
 	~ArmorSearch();
-
-	Json::Value getJson();
 
 	ArmorSearch(const ArmorSearch& other); // Copy Constructor
 	ArmorSearch(ArmorSearch&& other); // Move Constructor
@@ -31,3 +30,5 @@ public:
 private:
 	Json::Value* armorJson;
 };
+
+#endif

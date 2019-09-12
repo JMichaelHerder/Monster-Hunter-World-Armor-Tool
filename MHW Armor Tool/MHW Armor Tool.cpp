@@ -18,8 +18,6 @@ int main()
 
 	ArmorSearch seeker(armorJson);
 
-	Json::Value val = seeker.getJson();
-
 	jsonVector armorList;
 
 	string type = "arms";
@@ -31,6 +29,7 @@ int main()
 	}
 
 	seeker.~ArmorSearch();
+	file.close();
 
 	return 0;
 }

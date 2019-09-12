@@ -21,6 +21,15 @@
     <ClCompile Include="jsoncpp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ArmorSearch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ArmorSet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ArmorPiece.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="armors.json" />
@@ -30,6 +39,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="json-forwards.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ArmorSearch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ArmorSet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ArmorPiece.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
