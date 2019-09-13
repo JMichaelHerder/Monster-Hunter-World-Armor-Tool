@@ -1,5 +1,6 @@
 #include "ArmorSet.h"
 
+// Constructor
 ArmorSet::ArmorSet() {
 	armorSetPieces.reserve(5);
 	armorSetGender = "both";
@@ -38,12 +39,46 @@ bool ArmorSet::checkGender(std::string newArmorGender) {
 * @return true if compatible with current armor, false if incompatible
 */
 bool ArmorSet::checkType(std::string newArmorType) {
-	return false;
+	for (Json::Value armor : armorSetPieces) {
+		if (armor["type"] == newArmorType) { 
+			return false;
+		}
+	}
+	return true;
 }
 
-bool ArmorSet::addArmor(Json::Value& const armorToAdd) { // Adds armor piece to set and updates member variables; checks type and gender
+/**
+* Private helper function for addArmor - checks if new armor piece's type is already present in current set
+*
+* @param newArmorType - Type of new armor piece to be added to current set
+* @return true if compatible with current armor, false if incompatible
+*/
+void ArmorSet::replaceArmorPiece(Json::Value& const armorToReplace) {
 	
-	if (checkGender()) {
+}
 
+void ArmorSet::updateArmorSet(Json::Value& const addedArmor) { // only handles added armor for now
+	
+}
+
+
+/**
+* Adds armor to current set if compatible with other armor pieces and updates member variables
+*
+* @param armorToAdd - Armor piece to add to set
+* @return true if armor was added, false if not
+*/
+bool ArmorSet::addArmor(Json::Value& const armorToAdd) {
+	if (checkGender(armorToAdd["gender"].asString())) {
+		for (Json::Value armor : armorSetPieces) {
+			if (armor["type"] == armorToAdd["type"]) { // Should ask user if they want to replace conflicting armor with new armor piece (replaceArmorPiece)
+				
+			}
+		}
+
+
+		return true;
 	}
+
+	return false;
 }

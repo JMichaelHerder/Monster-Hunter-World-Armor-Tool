@@ -24,8 +24,11 @@ int main()
 
 	seeker.searchByType(armorList, type);
 
-	for (Json::Value armor : armorList) {
-		std::cout << armor["name_en"] << std::endl;
+	Json::Value leatherHelmDef = armorJson["armors"][0]["defense_values"];
+
+	// Use idea here for adding skills and materials to list
+	for (Json::Value::iterator it = leatherHelmDef.begin(); it != leatherHelmDef.end(); ++it) {
+		std::cout << it.key() << std::endl;
 	}
 
 	seeker.~ArmorSearch();

@@ -11,7 +11,7 @@ using string = std::string;
 
 class ArmorSearch {
 public:
-	ArmorSearch(Json::Value& root);
+	ArmorSearch(Json::Value& const root);
 
 	~ArmorSearch();
 
