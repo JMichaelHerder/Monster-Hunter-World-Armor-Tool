@@ -6,17 +6,18 @@
 #include <string>
 #include <map>
 #include <iostream>
+#include <iomanip>
 
 class ArmorSet {
 public:
 	ArmorSet();
 
 	bool addArmor(Json::Value& const armorToAdd); // Adds armor piece to set and updates member variables; checks type and gender
-	/*
-	bool removeArmor();
+	
+	//bool removeArmor();
 
 	void printArmorSet();
-	void saveSet(); // We'll see about this*/
+	//void saveSet(); // We'll see about this
 	
 
 private: // Possibly add int cost variable if data is updated
@@ -29,8 +30,8 @@ private: // Possibly add int cost variable if data is updated
 
 	bool checkGender(std::string gender); // Helper for addArmor function
 	bool checkType(std::string type); // Helper for addArmor function
-	void replaceArmorPiece(Json::Value& const armorToReplace);
 	void updateArmorSet(Json::Value& const addedArmor);
+	void replaceArmorPiece(Json::Value& const armorToReplace);
 };
 
 #endif

@@ -5,6 +5,7 @@
 #include <typeinfo>
 
 #include "ArmorSearch.h"
+#include "ArmorSet.h"
 
 using jsonVector = std::vector<Json::Value>;
 
@@ -20,16 +21,19 @@ int main()
 
 	jsonVector armorList;
 
-	string type = "arms";
+	string name = "Kirin Leg Guards Gamma";
 
-	seeker.searchByType(armorList, type);
+	seeker.searchByName(armorList, name);
 
-	Json::Value leatherHelmDef = armorJson["armors"][0]["defense_values"];
-
-	// Use idea here for adding skills and materials to list
-	for (Json::Value::iterator it = leatherHelmDef.begin(); it != leatherHelmDef.end(); ++it) {
-		std::cout << it.key() << std::endl;
+	for (Json::Value armor : armorList) {
+		//std::cout << armor["name_en"] << std::endl;
 	}
+
+	ArmorSet workingSet;
+
+	workingSet.addArmor(armorList[0]);
+
+	workingSet.printArmorSet();
 
 	seeker.~ArmorSearch();
 	file.close();
