@@ -14,7 +14,7 @@ public:
 
 	bool addArmor(Json::Value& const armorToAdd); // Adds armor piece to set and updates member variables; checks type and gender
 	
-	//bool removeArmor();
+	void removeArmor(Json::Value& const armorToRemove);
 
 	void printArmorSet();
 	//void saveSet(); // We'll see about this

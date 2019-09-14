@@ -22,15 +22,24 @@ int main()
 	jsonVector armorList;
 
 	string name = "Kirin Leg Guards Gamma";
-
 	seeker.searchByName(armorList, name);
 
-	for (Json::Value armor : armorList) {
+	//for (Json::Value armor : armorList) {
 		//std::cout << armor["name_en"] << std::endl;
-	}
+	//}
 
 	ArmorSet workingSet;
 
+	string legArmor = "Kirin Leg Guards Gamma";
+	seeker.searchByName(armorList, legArmor);
+	workingSet.addArmor(armorList[0]);
+
+	string chestArmor = "King Beetle Thorax";
+	seeker.searchByName(armorList, chestArmor);
+	workingSet.addArmor(armorList[0]);
+
+	string armArmor = "King Beetle Thorax";
+	seeker.searchByName(armorList, chestArmor);
 	workingSet.addArmor(armorList[0]);
 
 	workingSet.printArmorSet();

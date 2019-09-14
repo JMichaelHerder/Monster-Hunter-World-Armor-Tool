@@ -53,12 +53,20 @@ bool ArmorSet::checkType(std::string newArmorType) {
 * @param addedArmor - Armor to be added to set, containing defense, skills, and materials information
 */
 void ArmorSet::updateArmorSet(Json::Value& const addedArmor) { // only handles added armor for now
-	// For loop that updates defense values of armor set
+	// NOTE ON ITERATOR FOR LOOPS: These loops access Json elements in alphabetical order with respect to the key
+	// For loop that updates defense values of armor set, checks key to maintain original order
 	int defValIndex = 0;
 	for (Json::Value::iterator it = addedArmor["defense_values"].begin(); it != addedArmor["defense_values"].end(); ++it) {
+		if (it.key().asString() == "defense_base") { defValIndex = 0; }
+		else if (it.key().asString() == "defense_max") { defValIndex = 1; }
+		else if (it.key().asString() == "defense_augment_max") { defValIndex = 2; }
+		else if (it.key().asString() == "defense_fire") { defValIndex = 3; }
+		else if (it.key().asString() == "defense_water") { defValIndex = 4; }
+		else if (it.key().asString() == "defense_thunder") { defValIndex = 5; }
+		else if (it.key().asString() == "defense_ice") { defValIndex = 6; }
+		else { defValIndex = 7; }
 
 		totalDefenseVals[defValIndex] += (*it).asInt();
-		defValIndex++;
 	}
 	// For loop that updates skills of armor set (must check if skill is already present in set and add points)
 	std::map<std::string, int>::iterator mapIt; // Used for skills and materials
@@ -117,7 +125,63 @@ bool ArmorSet::addArmor(Json::Value& const armorToAdd) {
 	return false;
 }
 
+/**
+* Removes armor from current set updates member variables
+*
+* @param armorToRemove - Armor piece to remove from set
+* @return true if armor was removed, false if not
+*/
+void ArmorSet::removeArmor(Json::Value& const armorToRemove) {
+	// NOTE ON ITERATOR FOR LOOPS: These loops access Json elements in alphabetical order with respect to the key
+	// For loop that updates defense values of armor set, checks key to maintain original order
+	int defValIndex = 0;
+	for (Json::Value::iterator it = armorToRemove["defense_values"].begin(); it != armorToRemove["defense_values"].end(); ++it) {
+		if (it.key().asString() == "defense_base") { defValIndex = 0; }
+		else if (it.key().asString() == "defense_max") { defValIndex = 1; }
+		else if (it.key().asString() == "defense_augment_max") { defValIndex = 2; }
+		else if (it.key().asString() == "defense_fire") { defValIndex = 3; }
+		else if (it.key().asString() == "defense_water") { defValIndex = 4; }
+		else if (it.key().asString() == "defense_thunder") { defValIndex = 5; }
+		else if (it.key().asString() == "defense_ice") { defValIndex = 6; }
+		else { defValIndex = 7; }
 
+		totalDefenseVals[defValIndex] -= (*it).asInt();
+	}
+	// For loop that updates skills of armor set and removes them if they have 0 points
+	std::map<std::string, int>::iterator mapIt; // Used for skills and materials
+	for (Json::Value::iterator it = armorToRemove["skills"].begin(); it != armorToRemove["skills"].end(); ++it) {
+		armorSetSkills[it.key().asString()] -= (*it).asInt();
+		if (armorSetSkills[it.key().asString()] == 0) {
+			armorSetSkills.erase(it.key().asString());
+		}
+	}
+	// For loop that updates materials needed to craft armor set (must check if material is already present in list and add amount)
+	for (Json::Value::iterator it = armorToRemove["materials"].begin(); it != armorToRemove["materials"].end(); ++it) {
+		craftingMaterials[it.key().asString()] -= (*it).asInt();
+		if (craftingMaterials[it.key().asString()] == 0) {
+			craftingMaterials.erase(it.key().asString());
+		}
+	}
+	// For loop that removes armor and checks to see if armorSetGender needs to be chamged as a result
+	bool revertSetGender = true;
+	for (int i = 0; i < armorSetPieces.size(); i++) {
+		if (armorSetPieces[i] == armorToRemove) {
+			armorSetPieces.erase(armorSetPieces.begin() + i);
+		}
+		else if (armorToRemove != "both" && revertSetGender) { // If this is true, that means armorSetGender cannot be both
+			if (armorSetPieces[i]["gender"].asString() != "both") {
+				revertSetGender = false;
+			}
+		}
+	}
+	if (revertSetGender) {
+		armorSetGender = "both";
+	}
+}
+
+/**
+* Prints relevant information to armor set (will eventually print all armor pieces as well)
+*/
 void ArmorSet::printArmorSet() {
 	/*
 	for (Json::Value armor : armorSetPieces) {
